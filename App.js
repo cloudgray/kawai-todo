@@ -1,10 +1,35 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  TextInput,
+  Dimensions,
+  Platform
+} from "react-native";
 
+const { height, width } = Dimensions.get("window");
+
+const shadowOpt = {
+  width: 100,
+  height: 100,
+  color: "#000",
+  border: 2,
+  radius: 3,
+  opacity: 0.2,
+  x: 0,
+  y: 3,
+  style: { marginVertical: 5 }
+};
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar barStyle="light-content" />
+      <Text style={styles.title}>Kawai To Do</Text>
+      <View style={styles.card}>
+        <TextInput style={styles.input} placeholder={"New ToDo"} />
+      </View>
     </View>
   );
 }
@@ -12,8 +37,36 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#F23657",
+    alignItems: "center"
   },
+  title: {
+    color: "white",
+    fontSize: 30,
+    marginTop: 50,
+    fontWeight: "100",
+    marginBottom: 30
+  },
+  card: {
+    backgroundColor: "white",
+    flex: 1,
+    width: width - 25,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    ...Platform.select({
+      ios: {
+        shadowColor: "rgb(50, 50, 50)",
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        shadowOffset: {
+          height: -1,
+          width: 0
+        }
+      },
+      android: {
+        elevation: 3
+      }
+    })
+  },
+  input: {}
 });
